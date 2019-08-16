@@ -3,6 +3,9 @@ import { AuthService } from '../../service/auth.service';
 import { NgForm } from '@angular/forms';
 
 
+
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,7 +20,8 @@ export class RegisterComponent implements OnInit {
   password:String;
 
   constructor(
-    private authService:AuthService
+    private authService:AuthService,
+  
   ) { }
 
   ngOnInit() {
@@ -33,6 +37,8 @@ export class RegisterComponent implements OnInit {
     //console.log(user);
     this.authService.registerUser(user).subscribe(res=>{
       console.log(res);
+        
+     
     });
 
 

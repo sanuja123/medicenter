@@ -7,14 +7,25 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
+
+//routes
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var patientRouter = require('./routes/patient');
 var sickInfoRouter = require('./routes/sickinfo');
 
+
+
+
 var app = express();
+app.use(bodyParser.json())
 app.use(cors());
+
+
+
 
 //passport
 
@@ -22,8 +33,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 
-//mongodb
 
+
+
+
+//mongodb
 
 const config = require('./config/database');
 
@@ -34,6 +48,10 @@ if(connection){
 else{
   console.log("database not connected");
 }
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,10 +68,16 @@ app.use('/users', usersRouter);
 app.use('/patient', patientRouter);
 app.use('/sickinfo', sickInfoRouter);
 
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -65,5 +89,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
